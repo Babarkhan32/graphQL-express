@@ -45,8 +45,8 @@ const {
     fields: {
       users: {
         type: new GraphQLList(UserType),
-        resolve() {
-          // TODO: implement logic to fetch all users from database
+       async resolve() {
+            return await User.find({});
         },
       },
       user: {
@@ -54,8 +54,9 @@ const {
         args: {
           _id: { type: GraphQLNonNull(GraphQLString) },
         },
-        resolve(parent, args) {
-          // TODO: implement logic to fetch user by ID from database
+       async resolve(parent, args) {
+            const { _id } = args;
+            return await User.findOne({_id:_id})
         },
       },
     },
